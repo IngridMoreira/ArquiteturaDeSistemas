@@ -1,12 +1,15 @@
 package com.example.AluguelEvento;
 
+import java.util.ArrayList;
+
 public class Produto {
-    private String id;
+    private long id;
     private String nome;
     private String descricao;
     private int quantidade;
     private int quantidadeDisponivel;
     private double valor;
+    ArrayList<Produto> produtos = new ArrayList();
 
     @Override
     public String toString() {
@@ -20,7 +23,7 @@ public class Produto {
                 '}';
     }
 
-    public Produto(String id, String nome, String descricao, int quantidade, int quantidadeDisponivel, double valor) {
+    public Produto(long id, String nome, String descricao, int quantidade, int quantidadeDisponivel, double valor) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -29,7 +32,10 @@ public class Produto {
         this.valor = valor;
     }
 
-    public String getId() {
+    public Produto() {
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -67,5 +73,66 @@ public class Produto {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public void cadastrarProduto(Produto produto){
+
+        produtos.add(produto);
+    }
+
+    private int procurarProduto(long id) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int verificarDisponibilidade(long id){
+        return produtos.get(procurarProduto(id)).getQuantidadeDisponivel();
+    }
+
+    public void subtrairProdutoQuant(long id,int valor){
+        int num = produtos.get(procurarProduto(id)).getQuantidadeDisponivel();
+        produtos.get(procurarProduto(id)).setQuantidadeDisponivel(num - valor);
+    }
+
+    public void adicionarProdutoQuant(long id,int valor){
+        int num = produtos.get(procurarProduto(id)).getQuantidadeDisponivel();
+        produtos.get(procurarProduto(id)).setQuantidadeDisponivel(num + valor);
+    }
+
+
+    public void excluirProdutoEstoque(long id){
+
+        produtos.remove(procurarProduto(id));
+    }
+
+    public String infoProduto(long id){
+
+        return produtos.get(procurarProduto(id)).toString();
+    }
+
+    public void listarProdutos(){
+        for (int i = 0; i < produtos.size(); i++) {
+            if(produtos.get(i) != null)
+                System.out.println(produtos.get(i).toString());
+
+        }
+    }
+
+    public void alterarProduto(long id, String descricao, int quantidade, double valor){
+        if (!descricao.isEmpty()) {
+            produtos.get(procurarProduto(id)).setDescricao(descricao);
+        }
+
+        if (quantidade != -1) {
+            produtos.get(procurarProduto(id)).setQuantidade(quantidade);
+        }
+
+        if (valor != -1) {
+            produtos.get(procurarProduto(id)).setValor(valor);
+        }
     }
 }
