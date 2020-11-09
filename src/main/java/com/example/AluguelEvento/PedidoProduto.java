@@ -1,5 +1,7 @@
 package com.example.AluguelEvento;
 
+import com.example.AluguelEvento.model.Produto;
+
 public class PedidoProduto {
     private Produto produto;
     private String idPedido;

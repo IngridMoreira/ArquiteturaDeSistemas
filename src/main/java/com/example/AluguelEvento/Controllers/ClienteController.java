@@ -1,5 +1,6 @@
-package com.example.AluguelEvento;
+package com.example.AluguelEvento.Controllers;
 
+import com.example.AluguelEvento.model.Cliente;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,7 +10,7 @@ public class ClienteController {
 
 
     @PostMapping
-    public void addCliente(@RequestBody Cliente c){
+    public void criarCliente(@RequestBody Cliente c){
         c.adicionarCliente(c);
         c.listarClientes();
     }
@@ -21,6 +22,11 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public void removeCliente(@PathVariable("id") int id){
+
+    }
+
+    @GetMapping
+    public void listarClientes(){
 
     }
 

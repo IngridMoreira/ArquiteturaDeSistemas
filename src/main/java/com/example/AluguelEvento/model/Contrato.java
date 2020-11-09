@@ -1,4 +1,4 @@
-package com.example.AluguelEvento;
+package com.example.AluguelEvento.model;
 
 import java.util.Date;
 
@@ -11,6 +11,9 @@ public class Contrato {
     private String tipoEntrega;
     private String endereco;
     private Pedido pedido;
+    Contrato[] contrato = new Contrato[1000];
+
+
 
 
 
@@ -24,6 +27,9 @@ public class Contrato {
         this.endereco = endereco;
         this.pedido = pedido;
     }
+    public void listarContratos(){}
+
+    public void gerarMulta(){}
 
     public Date getDiaEvento() {
         return diaEvento;
