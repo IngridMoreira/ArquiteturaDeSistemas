@@ -1,18 +1,18 @@
 package com.example.AluguelEvento.Controllers;
 
 import com.example.AluguelEvento.model.Cliente;
+import com.example.AluguelEvento.model.clienteControle;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-    Cliente c = new Cliente();
+    clienteControle con = new clienteControle();
 
 
     @PostMapping
     public void criarCliente(@RequestBody Cliente c){
-        c.adicionarCliente(c);
-        c.listarClientes();
+        con.adicionarCliente(c);
     }
 
     @PutMapping("/{id}")
@@ -26,8 +26,8 @@ public class ClienteController {
     }
 
     @GetMapping
-    public void listarClientes(){
-
+    public void listarClientes(@RequestBody Cliente c){
+        con.listarClientes();
     }
 
 

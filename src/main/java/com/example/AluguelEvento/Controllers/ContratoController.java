@@ -1,14 +1,15 @@
 package com.example.AluguelEvento.Controllers;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.AluguelEvento.model.Cliente;
+import com.example.AluguelEvento.model.Contrato;
+import com.example.AluguelEvento.model.contratoControle;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contratos")
 public class ContratoController {
+    contratoControle con = new contratoControle();
 
     @GetMapping
     public void listarContratos(){
@@ -16,8 +17,8 @@ public class ContratoController {
     }
 
     @PostMapping
-    public void criarContrato(){
-
+    public void criarContrato(@RequestBody Contrato c){
+        con.criarContrato(c);
     }
 
 }

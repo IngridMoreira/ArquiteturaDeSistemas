@@ -10,8 +10,7 @@ public class produtoController {
 
     @PostMapping
     public void criarCliente(@RequestBody Cliente c){
-        c.adicionarCliente(c);
-        c.listarClientes();
+
     }
 
     @GetMapping
