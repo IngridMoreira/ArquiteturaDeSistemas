@@ -10,31 +10,31 @@ public class clienteControle {
         clientes.add(cliente);
     }
 
-    private int procurarCliente(String cpf) {
+    private int procurarCliente(long id) {
         for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getCpf().equals(cpf)) {
+            if (clientes.get(i).getId() == id) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void excluirCliente(String cpf) {
+    public void excluirCliente(long id) {
 
-        clientes.remove(procurarCliente(cpf));
+        clientes.remove(procurarCliente(id));
     }
 
-    public String infoCliente(String cpf) {
+    public String infoCliente(long id) {
 
-        return clientes.get(procurarCliente(cpf)).toString();
+        return clientes.get(procurarCliente(id)).toString();
     }
 
-    public void alterarCliente(String cpf, String telefone, String endereco) {
+    public void alterarCliente(long id, String telefone, String endereco) {
         if (!telefone.isEmpty()) {
-            clientes.get(procurarCliente(cpf)).setTelefone(telefone);
+            clientes.get(procurarCliente(id)).setTelefone(telefone);
         }
         if (!endereco.isEmpty()) {
-            clientes.get(procurarCliente(cpf)).setEndereco(endereco);
+            clientes.get(procurarCliente(id)).setEndereco(endereco);
         }
     }
 

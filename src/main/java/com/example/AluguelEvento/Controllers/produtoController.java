@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class produtoController {
 
     @PostMapping
-    public void criarCliente(@RequestBody Cliente c){
+    public void criarProduto(@RequestBody Cliente c){
 
     }
 
@@ -20,6 +20,11 @@ public class produtoController {
 
     @PutMapping("/{id}")
     public void alterarProduto(@PathVariable("id") int id, @RequestBody Cliente c){
+
+    }
+
+    @PatchMapping("/{id}")
+    public void alterarDadosProduto(@PathVariable("id") int id, @RequestBody Cliente c){
 
     }
 

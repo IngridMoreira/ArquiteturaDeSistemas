@@ -1,4 +1,4 @@
-package com.example.AluguelEvento;
+package com.example.AluguelEvento.model;
 
 import com.example.AluguelEvento.model.Produto;
 

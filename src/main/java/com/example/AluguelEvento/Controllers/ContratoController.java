@@ -18,7 +18,13 @@ public class ContratoController {
 
     @PostMapping
     public void criarContrato(@RequestBody Contrato c){
+
         con.criarContrato(c);
+    }
+
+    @DeleteMapping
+    public void excluirContrato(@RequestBody Contrato c){
+
     }
 
 }

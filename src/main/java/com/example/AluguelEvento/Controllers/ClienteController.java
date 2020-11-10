@@ -13,10 +13,12 @@ public class ClienteController {
     @PostMapping
     public void criarCliente(@RequestBody Cliente c){
         con.adicionarCliente(c);
+        con.listarClientes();
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public void alterarCliente(@PathVariable("id") int id, @RequestBody Cliente c){
+
 
     }
 

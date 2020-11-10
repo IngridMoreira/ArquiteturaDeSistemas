@@ -65,5 +65,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-
+    public long getId() {
+        return id;
+    }
 }
