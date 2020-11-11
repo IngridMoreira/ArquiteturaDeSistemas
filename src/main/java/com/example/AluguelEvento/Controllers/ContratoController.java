@@ -22,8 +22,8 @@ public class ContratoController {
         con.criarContrato(c);
     }
 
-    @DeleteMapping
-    public void excluirContrato(@RequestBody Contrato c){
+    @DeleteMapping("/{id}")
+    public void excluirContrato(@RequestBody Contrato c,@PathVariable("id") int id){
 
     }
 
