@@ -3,6 +3,7 @@ package com.example.AluguelEvento.Controllers;
 import com.example.AluguelEvento.model.Cliente;
 import com.example.AluguelEvento.model.ClienteControle;
 import com.example.AluguelEvento.services.ClienteService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class ClienteController {
     @GetMapping("/{cpf}")
     public ResponseEntity<Cliente> getByCpf(@PathVariable("cpf") String cpf) {
         try {
-            clienteService.clienteByCpf(cpf);
-            return ResponseEntity.noContent().build();
+            Optional<Cliente> clienteopt = clienteService.clienteByCpf(cpf);
+            return ResponseEntity.ok(clienteopt.get());
         } catch (RuntimeException exception) {
             return ResponseEntity.notFound().build();
         }
@@ -63,14 +64,9 @@ public class ClienteController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Cliente> delete(@PathVariable("id") Integer id) {
-        try {
-            clienteService.deletarCliente(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException exception) {
-            return ResponseEntity.badRequest().build();
-        }
-
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") Integer id) {
+        clienteService.deletarCliente(id);
     }
 
 }

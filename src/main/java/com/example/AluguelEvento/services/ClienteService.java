@@ -18,7 +18,7 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    @Transactional
+
     public void atualizarCliente(Cliente cliente, Integer id){
         Optional<Cliente> clienteOpt = clienteRepository.findById(id); //pega o cliente
 
@@ -31,30 +31,27 @@ public class ClienteService {
         clienteRepository.save(clienteBanco);
     }
 
-    @Transactional
-    public void clienteByCpf(String cpf){
+    public Optional<Cliente> clienteByCpf(String cpf){
         Optional<Cliente> cliente = clienteRepository.findByCpf(cpf);
         if (cliente.isEmpty()) {
             throw new RuntimeException("nao existe cliente com este cpf");
         }
+
+        return cliente;
     }
 
     public List<Cliente> allClientes(){
         return clienteRepository.findAll();
     }
 
-    @Transactional
+
     public void addCliente(Cliente cliente){
         con.verificarCliente(cliente);
         Cliente clienteSalvo = clienteRepository.save(cliente);
     }
 
-    @Transactional
+
     public void deletarCliente(Integer id){
-        Optional<Cliente> clienteOpt = clienteRepository.findById(id);
-        if(clienteOpt.isEmpty()){
-            throw new RuntimeException("o cliente nao existe");
-        }
         clienteRepository.deleteById(id);
     }
 }
