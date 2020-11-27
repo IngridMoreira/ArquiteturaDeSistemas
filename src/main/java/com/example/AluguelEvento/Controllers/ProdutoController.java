@@ -1,8 +1,9 @@
 package com.example.AluguelEvento.Controllers;
 
+
 import com.example.AluguelEvento.model.Cliente;
-import com.example.AluguelEvento.model.ClienteControle;
-import com.example.AluguelEvento.services.ClienteService;
+import com.example.AluguelEvento.model.Produto;
+import com.example.AluguelEvento.services.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,38 +12,35 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
-    ClienteControle con = new ClienteControle();
+@RequestMapping("/produtos")
+public class ProdutoController {
+    private ProdutoService produtoService;
 
-    private ClienteService clienteService;
-
-    public ClienteController( ClienteService clienteService) {
-
-        this.clienteService = clienteService;
+    ProdutoController(ProdutoService produtoService) {
+        this.produtoService = produtoService;
     }
 
 
     @GetMapping
-    public List<Cliente> getAll() {
-        return clienteService.allClientes();
+    public List<Produto> getAll() {
+        return produtoService.allProdutos();
     }
 
-
-    @GetMapping("/{cpf}")
-    public ResponseEntity<Cliente> getByCpf(@PathVariable("cpf") String cpf) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> getById(@PathVariable("id") Integer id) {
         try {
-            Optional<Cliente> clienteopt = clienteService.clienteByCpf(cpf);
-            return ResponseEntity.ok(clienteopt.get());
+            Optional<Produto> produtoopt = produtoService.produtoById(id);
+            return ResponseEntity.ok(produtoopt.get());
         } catch (RuntimeException exception) {
             return ResponseEntity.notFound().build();
         }
+
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> adicionar(@RequestBody Cliente cliente) {
+    public ResponseEntity<Produto> adicionar(@RequestBody Produto produto) {
         try {
-            clienteService.addCliente(cliente);
+            produtoService.addProduto(produto);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException exception) {
             return ResponseEntity.badRequest().build();
@@ -52,9 +50,9 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> alterarCliente(@PathVariable("id") Integer id,
-                                           @RequestBody Cliente cliente) {
+                                                  @RequestBody Produto produto) {
         try {
-            clienteService.atualizarCliente(cliente, id);
+            produtoService.atualizarProduto(produto, id);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException exception) {
             return ResponseEntity.badRequest().build();
@@ -62,11 +60,11 @@ public class ClienteController {
 
     }
 
-
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
-        clienteService.deletarCliente(id);
+        produtoService.deletarProduto(id);
     }
+
 
 }
