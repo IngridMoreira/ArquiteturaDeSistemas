@@ -1,15 +1,20 @@
 package com.example.AluguelEvento.model;
 
 
+import javax.persistence.*;
 
 
+@Table(name = "cliente")
+@Entity
 public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String nome;
     private String cpf;
     private String endereco;
     private String nascimento;
     private String telefone;
-    private long id;
 
 
 
@@ -24,7 +29,7 @@ public class Cliente {
                 '}';
     }
 
-    public Cliente(String nome, String cpf, String endereco, String nascimento, String telefone, long id) {
+    public Cliente(String nome, String cpf, String endereco, String nascimento, String telefone, int id) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
