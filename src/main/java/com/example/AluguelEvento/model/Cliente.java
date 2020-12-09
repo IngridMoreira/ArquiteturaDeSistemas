@@ -2,6 +2,7 @@ package com.example.AluguelEvento.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Table(name = "cliente")
@@ -9,12 +10,16 @@ import javax.persistence.*;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+
     private String nome;
     private String cpf;
     private String endereco;
     private String nascimento;
     private String telefone;
+
+    @OneToMany(mappedBy = "cliente")
+    List<Pedido> pedidos;
 
 
 
@@ -70,7 +75,7 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 }

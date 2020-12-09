@@ -1,8 +1,8 @@
 package com.example.AluguelEvento.services;
 
-import com.example.AluguelEvento.Controllers.ClienteRepository;
+
 import com.example.AluguelEvento.Controllers.ProdutoRepository;
-import com.example.AluguelEvento.model.Cliente;
+
 import com.example.AluguelEvento.model.Produto;
 import org.springframework.stereotype.Service;
 

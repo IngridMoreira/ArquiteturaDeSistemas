@@ -2,6 +2,7 @@ package com.example.AluguelEvento.Controllers;
 
 import com.example.AluguelEvento.model.Cliente;
 import com.example.AluguelEvento.model.ClienteControle;
+import com.example.AluguelEvento.model.Pedido;
 import com.example.AluguelEvento.services.ClienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ClienteController {
 
     private ClienteService clienteService;
 
-    public ClienteController( ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService) {
 
         this.clienteService = clienteService;
     }
@@ -28,8 +29,14 @@ public class ClienteController {
         return clienteService.allClientes();
     }
 
+    @GetMapping("/{id}/pedidos")
+    public List<Pedido> getAll(@PathVariable("id") Integer id) {
 
-    @GetMapping("/{cpf}")
+        return clienteService.ClientePedidos(id);
+    }
+
+
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Cliente> getByCpf(@PathVariable("cpf") String cpf) {
         try {
             Optional<Cliente> clienteopt = clienteService.clienteByCpf(cpf);
@@ -38,6 +45,17 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> getByCpf(@PathVariable("id") Integer id) {
+        try {
+            Optional<Cliente> clienteopt = clienteService.clienteById(id);
+            return ResponseEntity.ok(clienteopt.get());
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<Cliente> adicionar(@RequestBody Cliente cliente) {
@@ -52,7 +70,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> alterarCliente(@PathVariable("id") Integer id,
-                                           @RequestBody Cliente cliente) {
+                                                  @RequestBody Cliente cliente) {
         try {
             clienteService.atualizarCliente(cliente, id);
             return ResponseEntity.noContent().build();
