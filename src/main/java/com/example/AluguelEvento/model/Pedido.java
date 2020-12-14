@@ -1,10 +1,13 @@
 package com.example.AluguelEvento.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +27,17 @@ public class Pedido {
 
     @ManyToOne
     Cliente cliente;
-    @ManyToOne
-    Produto produto;
 
-    private int quantidade;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pedido")
+    List<PedidoQuantidade> pedidoQuantidade;
+
+
     private double valor;
 
+    public Pedido() {
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -48,14 +56,6 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
     public Date getData_compra() {
         return data_compra;
     }
@@ -70,15 +70,6 @@ public class Pedido {
 
     public void setData_devolucao(Date data_devolucao) {
         this.data_devolucao = data_devolucao;
-    }
-
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public double getValor() {

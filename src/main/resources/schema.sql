@@ -20,12 +20,9 @@ CREATE TABLE IF NOT EXISTS pedido(
     data_compra date,
     data_devolucao date,
     cliente_id int ,
-    produto_id int ,
-    quantidade int,
     valor decimal,
 
-    foreign key (cliente_id) references cliente(id),
-    foreign key (produto_id) references produto(id)
+    foreign key (cliente_id) references cliente(id)
 );
 
 CREATE TABLE IF NOT EXISTS disponibilidade(
@@ -36,6 +33,20 @@ CREATE TABLE IF NOT EXISTS disponibilidade(
 
 );
 
+CREATE TABLE IF NOT EXISTS pedidoquantidade(
+    id int AUTO_INCREMENT primary key not null,
+    pedido_id int,
+    produto_id int,
+    quantidade int,
+
+    foreign key (pedido_id) references pedido(id),
+    foreign key (produto_id) references produto(id)
+
+
+);
+
+
+
 insert into cliente(NOME ,ENDERECO ,CPF,TELEFONE ,NASCIMENTO ) values('lucas','fortaleza','123456','654321','2020-12-07');
 insert into cliente(NOME ,ENDERECO ,CPF,TELEFONE ,NASCIMENTO ) values('thiago','fortaleza','101112','6578430','2000-02-08');
 
@@ -43,6 +54,6 @@ insert into produto(NOME ,DESCRICAO ,QUANTIDADE ,VALOR  ) values('cadeira','tem 
 insert into produto(NOME ,DESCRICAO ,QUANTIDADE ,VALOR  ) values('mesa','mesa para festa',35,250);
 insert into produto(NOME ,DESCRICAO ,QUANTIDADE ,VALOR  ) values('chapeu de natal','descricao',12,1);
 
-insert into pedido (cliente_id,produto_id,data_compra,data_devolucao,quantidade,valor) values(1,1,'2020-12-07','2020-12-30',5,350);
+insert into pedido (cliente_id,data_compra,data_devolucao,valor) values(1,'2020-12-07','2020-12-30',350);
 
 insert into disponibilidade (data_devolucao,nome,quantidade) values('2020-12-30','cadeira',10);

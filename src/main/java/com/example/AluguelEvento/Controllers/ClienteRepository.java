@@ -15,7 +15,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     Optional<Cliente> findByCpf(String cpf);
 
 
-    @Query("select p from Cliente c join c.pedidos p where c.id = ?1 ")
+    @Query("select p from Cliente c join c.pedidos p where c.id = ?1")
     List<Pedido> findPedidos(Integer id);
 
 }

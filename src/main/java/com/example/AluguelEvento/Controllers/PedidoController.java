@@ -3,6 +3,7 @@ package com.example.AluguelEvento.Controllers;
 
 import com.example.AluguelEvento.model.Cliente;
 import com.example.AluguelEvento.model.Pedido;
+import com.example.AluguelEvento.model.PedidoQuantidade;
 import com.example.AluguelEvento.services.PedidoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,12 @@ public class PedidoController {
         this.pedidoService = pedidoService;
     }
 
-    @PostMapping("/clientes/{idCliente}/produtos/{idProduto}")
-    public ResponseEntity<Pedido> addPedido(@PathVariable("idCliente") int idCliente, @PathVariable("idProduto") int idProduto, @RequestBody Pedido pedido) {
+
+
+    @PostMapping("/clientes/{idCliente}")
+    public ResponseEntity<Pedido> addPedido(@PathVariable("idCliente") int idCliente, @RequestBody Pedido pedido) {
         try {
-            pedidoService.addPedido(pedido, idCliente, idProduto);
+            pedidoService.addPedido(pedido, idCliente);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException exception) {
             return ResponseEntity.badRequest().build();
@@ -34,6 +37,16 @@ public class PedidoController {
     @GetMapping
     public List<Pedido> allPedidos() {
         return pedidoService.allPedidos();
+    }
+
+    @GetMapping("/{id}")
+    public Pedido getPedido(@PathVariable("id") int id){
+        return pedidoService.getPedido(id);
+    }
+
+    @GetMapping("/produtos/{id}")
+    public List<PedidoQuantidade> getPedidoQuantidade(@PathVariable("id") int id){
+        return pedidoService.getPedidoQuantidade(id);
     }
 
 
